@@ -1,0 +1,51 @@
+<!-- Page Content -->
+    <div class="container">  
+  
+  <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Complete
+                    <small>개미는 뚠뚠을 통해 나온 작업물</small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+				<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="4u 12u(mobile)">
+							    
+							          <!-- Portfolio Section -->
+        <div class="row">
+            <div class="col-lg-12">
+                <strong><h3 class="page-header">개미의 명작</h3></strong>
+            </div>
+        
+         <% @posts.each do |post|%>
+        <% if post.situation == "완료" %>
+        <div class="col-md-4">
+            <a href="/posts/show/<%=post.id%>"  style="text-decoration:none;">
+                <%post.imgs.all.each do |post_image| %>
+                <% if post_image.flag == "1" %>
+                    <% post_image.img_url.each do |url| %>
+                        <%= image_tag url, class:"img-thumbnail", style:"width:350px; height:250px;" %> <br>
+                    <%end%>
+                    <% break %>
+                <%end%>
+                <%end%>
+            </a>
+              <center><h4><%= post.title %></h4></center>
+				<li>개발자 이름: <%= post.developname %></li></p>
+				<li> 작가 이름: <%= post.name %></li>
+				<li>소요 기간: <%= post.finaltime %></li></p>
+				<li>설명: <%= post.intro %></li></p>
+        </div>
+        <% end %>
+        <%end%>
+          
+        </div>
+        <!-- /.row -->
+
+			

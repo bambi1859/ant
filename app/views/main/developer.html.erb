@@ -1,0 +1,32 @@
+<!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Developers
+                <small>개발자 소개공간</small>
+                </h1><form><input type="text" name="search" placeholder="Search.."></form><br>
+            </div>
+        </div>
+        <!-- /.row -->
+        
+        
+        <% @users.each do |user|%>
+            <% if user.job == "developer" or user.job == "개발자"%>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i> <%= user.name %> </h4>
+                    </div>
+                    <div class="panel-body">
+                        <p> 활동상태 : <%= user.status %></p>
+                        <p> 이메일 주소 : <%= user.email %></p>
+                        <p> 경력 : <%= user.carrer %></p>
+                        <p> 원하는 보수 : <%= user.money %></p>
+                        <p> 평균 개발 시간 : <%= user.time %></p>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+            <% end %>

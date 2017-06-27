@@ -1,0 +1,36 @@
+<br><center><br><br>
+  <h1><span style="color:blue; font-family:bold;"><%= current_user.name %></span>님<br><br>
+  <small>마이페이지에 오신걸 환영합니다.</small></h1><br></center>
+  <div class="row" style="width:40%; margin-left:30%;">
+      <hr>
+  <h3> <center><strong>개인 정보</strong></center></h3><hr>
+  <div class-"col-12">
+  <span> <strong>EMAIL</strong> : <%= current_user.email %> </span><br>
+  <span>  <strong>ID :</strong> <%= current_user.id %> </span><br>
+  <span>  <strong>Money :</strong> <%= current_user.money %></span><br>
+  <span>  <strong>Time :</strong> <%= current_user.time %></span><br>
+  <span>  <strong>Job : </strong><%= current_user.job %></span><br>
+  <span>  <strong>Phone :</strong> <%= current_user.phone %></span><br>
+  <span>  <strong>Status :</strong> <%= current_user.status %></span><br>
+  <span>  <strong>Career :</strong> <%= current_user.carrer %></span><br><hr>
+
+ <center>
+  
+  <h3> <strong>내 디자인 의뢰</strong></h3><hr>
+  <% @posts.each do |post| %>
+
+    <% if post.userid == current_user.name %>
+     <a href="/posts/show/<%= post.id%>" style="text-decoration:none;"><%=post.title%></a>
+    <% end %>
+  <%end%>
+  
+  <hr>
+  
+  <h3> <strong>내 개발 채택</strong></h3><hr>
+  
+  <% @posts.each do |post|%>
+  <% if post.developname == current_user.name%>
+     <a href="/posts/show/<%=post.id%>" style="text-decoration:none;"><%=post.title%></a>
+  <%end%>
+  <%end%></div></div></center><br><br>
+  <center> <%= link_to '정보수정', edit_user_registration_path,  class:"btn btn-default", method: 'get' %></center>

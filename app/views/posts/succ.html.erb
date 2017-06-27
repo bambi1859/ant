@@ -1,0 +1,26 @@
+
+<br><br><center><h1><strong>개미</strong></h1>
+					
+<div class="row" style="width:35%;">	
+<div class="col-12">
+ <center><h3>결과 완료!</h3></center><br>
+ <p>저희 서비스를 이용해 주셔서 감사합니다.</p><hr><br>
+
+<%=form_for @edit_post, url:post_succc_path , multipart: true do |f| %>
+     <div class="form-group" style="width:70%;">
+         <strong>최종 예산: </strong> <label> 
+         <%= f.text_field :finalmoney , class: "form-control" %>
+     </div>
+    <div class="form-group" style="width:70%;" >
+        <strong>소요시간</strong> <%= f.number_field :finaltime , class: "form-control" %></div>
+    <div class="form-group" style="width:70%;">
+        <strong>소개</strong> <%= f.text_field :intro , class: "form-control" %></div>
+    <div class="form-group"style="width:70%;">
+        <strong>결과물</strong> <%= f.file_field :image, multiple: true, accept: 'image/*', class: "btn btn-default" %>
+        </div>
+     <div class="button" style="margin-top: 30px; margin-bottom: 50px;">
+    <%= f.hidden_field :name, value: current_user.name %>
+    </div>
+ <%= submit_tag '제출' , class: "btn btn-default" %></div></div></div>
+         
+<%end%>

@@ -1,0 +1,126 @@
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12"><br>
+                <h1 class="page-header"><%=@post.title%>
+                    <small>by.<%=@post.userid%>
+                    </small>
+                </h1>
+                
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-8">
+                     <%@post.imgs.all.each do |post_image| %>
+                            <% post_image.img_url.each do |url| %>
+                                <center><%= image_tag url, class:"img-responsive", style:"width:250px;" %></center> <br>
+                            <%end%>
+                    <%end%>
+                <hr>
+
+                <!-- Post Content --> <p style="font-size: 15px;"><strong><h3>요구사항</h3></strong><hr><br>
+                <%=@post.content%>
+                </p>
+                
+              
+
+                <hr>
+
+                <!-- Blog Comments -->
+
+                <!-- Comments Form -->
+                <div class="well">
+                <% if user_signed_in? %> 
+                     <%=form_for Comment.new, url:comments_path do |f| %>
+                     <h3 style="margin-top:0px;"><strong><small>댓글달기:</strong></small></h5>
+                     <div class="form-group">
+                          <%= f.hidden_field :userid, value: current_user.name, class:"form-control" %></div>
+                     <div class="form-group">
+                          <%= f.text_field :content, class:"form-control" %></div>
+                     <div class="form-group">
+                          <%= f.hidden_field :post_id, value: @post.id, class:"form-control" %></div>
+                      <div class="button">
+                          <%= f.submit '댓글쓰기',  class:"btn btn-default"%></div>
+                    <%end%>
+                <%end%>
+                </div>
+
+                <hr>
+
+                <!-- Posted Comments -->
+
+                <!-- Comment -->
+                <% @post.comments.all.each do|comment|%>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="/assets/ant1.png" style="height:40px;" alt="">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading"><%=comment.userid%>
+                            <small><%=comment.created_at%></small>
+                        </h4>
+                        <%= comment.content %>
+                        <% if user_signed_in? %>
+                            <% if comment.userid == current_user.name %>
+                                <%=link_to '[삭제]', comment_path(comment), method: :delete, data: { confirm: '삭제하시겠습니까?' } %> 
+                            <% end %>
+                            <% if @post.userid == current_user.name and comment.userid != current_user.name%>
+                                <%=link_to '[개발자 선택]', scout_path(comment), method: :get, data: { confirm: '선택하시겠습니까?'} %>
+                            <% end %>
+                            
+                        <% end %>
+                    </div>
+                </div>
+                <%end%>
+            </div>
+                
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Blog Search Well -->
+                <div class="well">
+                    <strong><h4><%=@post.email%></h4></strong>
+                    
+                    <% if @post.developname == current_user.name %>
+                    <strong><h4><%=@post.phone%></h4></strong>
+                    <%end%>
+                    <!-- /.input-group -->
+                </div>
+
+                <!-- Blog Categories Well -->
+                
+
+                <!-- Side Widget Well -->
+                <div class="well">
+                    <h4 style="color:darkblue;">목적</h4><hr>
+                    <p><%=@post.purpose%></p><br>
+                    <h4 style="color:darkblue;">예산</h4><hr>
+                    <p><%=@post.money%></p><br>
+                    <h4 style="color:darkblue;">기간</h4><hr>
+                    <p><%=@post.date%></p><br>
+                    <h4 style="color:darkblue;">진행상황</h4><hr>
+                    <p><%=@post.situation%></p>
+                </div>
+                <center><div class="well">
+                <a href="/posts/designer" class="btn btn-default">이전</a>
+            <% if user_signed_in? %>
+                <% if @post.userid == current_user.name %>
+                    <a href="/posts/destroy/<%=@post.id%>" class="btn btn-default">삭제</a>
+                    <a href="/posts/edit/<%=@post.id%>" class="btn btn-default">수정</a> <br><br>
+                    <a href="/posts/succ/<%=@post.id%>" class="btn btn-primary" style="width:50%">완료</a> <br>
+                <% end %>
+            <% end %>
+                </div>
+                </center>
+
+            </div>
+
+        </div>
